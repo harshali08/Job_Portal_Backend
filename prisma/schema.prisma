@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
 }
 
 datasource db {
@@ -18,7 +18,51 @@ model User {
   user_name String
   email     String   @unique
   password  String
-  age       Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  createdJobs     JobPost[] @relation("JobsCreated")
+  updatedJobs     JobPost[] @relation("JobsUpdated")
+  createCompanies Company[] @relation("CompaniesCreated")
+  updateCompanies Company[] @relation("CompaniesUpdated")
+  companies       Company[]
+}
+
+model JobPost {
+  id                  String   @id @default(uuid())
+  job_role            String
+  job_type            String
+  job_description     String
+  company             String
+  salary              Int? // optional
+  location            String? // optional
+  category            String
+  key_responsibities  String
+  professional_skills String
+  tags                String[] // array of strings
+  created_by          String
+  updated_by          String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Relations
+  creator User @relation("JobsCreated", fields: [created_by], references: [id])
+  updater User @relation("JobsUpdated", fields: [updated_by], references: [id])
+}
+
+model Company {
+  id               String   @id @default(uuid())
+  company_name     String   @unique
+  company_location String[]
+  company_details  String
+  created_by       String
+  updated_by       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  creator User    @relation("CompaniesCreated", fields: [created_by], references: [id])
+  updater User    @relation("CompaniesUpdated", fields: [updated_by], references: [id])
+  user    User?   @relation(fields: [userId], references: [id])
+  userId  String?
 }

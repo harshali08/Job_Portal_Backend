@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import jobRoutes from "./routes/jobRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import companyRoutes from "./routes/companyRoutes.js";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 
 app.use("/jobs", jobRoutes);
 app.use("/auth", authRoutes);
+app.use("/company", companyRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
