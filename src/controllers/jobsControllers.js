@@ -2,7 +2,7 @@ import { prisma } from "../config/db.js";
 
 const getAllJobPosts = async (req, res) => {
   try {
-    const offset = parseInt(req.query.page) || 0; // Can be any number: 0, 10, 25, 100...
+    const offset = parseInt(req.query.offset) || 0; // Can be any number: 0, 10, 25, 100...
     const limit = parseInt(req.query.limit) || 10;
 
     const [allJobPosts, totalCount] = await Promise.all([
