@@ -58,7 +58,7 @@ const login = async (req, resp) => {
       .json({ status: "error", message: "Invalid User or Password" });
   }
 
-  const token = generateToken(userData.id, resp);
+  const token = await generateToken(userData.id, resp);
   return resp.status(200).json({
     status: "success",
     message: "Logged in Successfully",
@@ -78,4 +78,11 @@ const logout = async (req, resp) => {
   });
 };
 
-export { register, login, logout };
+const fetchUser = async (req, res) => {
+  return res.status(200).json({
+    status: "success",
+    data: { user: req.user },
+  });
+};
+
+export { register, login, logout, fetchUser };

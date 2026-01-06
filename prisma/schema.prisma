@@ -37,9 +37,11 @@ model JobPost {
   salary              Int? // optional
   location            String? // optional
   category            String
-  key_responsibities  String
-  professional_skills String
+  education           String[]
+  key_responsibities  String[]
+  professional_skills String[]
   tags                String[] // array of strings
+  experience          Int?
   created_by          String
   updated_by          String
   createdAt           DateTime @default(now())

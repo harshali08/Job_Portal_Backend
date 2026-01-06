@@ -50,6 +50,8 @@ const createJobPosts = async (req, res) => {
       key_responsibities,
       professional_skills,
       tags,
+      education,
+      experience,
       created_by,
       updated_by,
     } = req.body;
@@ -74,6 +76,8 @@ const createJobPosts = async (req, res) => {
         key_responsibities,
         professional_skills,
         tags: tags || [], // default to empty array
+        education,
+        experience,
         created_by,
         updated_by,
       },
@@ -132,6 +136,8 @@ const updateJobPost = async (req, res) => {
     key_responsibilities,
     professional_skills,
     tags,
+    education,
+    experience,
     updated_by,
   } = req.body;
 
@@ -157,6 +163,8 @@ const updateJobPost = async (req, res) => {
           key_responsibilities || existingPost.key_responsibities, // Map + fallback
         professional_skills,
         tags,
+        education,
+        experience,
         updated_by: updated_by || req.user?.id, // Auth fallback
         // Remove updated_at - @updatedAt handles automatically
       },
